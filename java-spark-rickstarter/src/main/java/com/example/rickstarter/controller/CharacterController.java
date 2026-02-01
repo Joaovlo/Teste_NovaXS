@@ -17,7 +17,7 @@ public class CharacterController {
 	}
 
 	private void setup() {
-		// Paginação
+		// (GET) importacao personagem com paginação
         get("/personagem", (req, res) -> {
             res.type("application/json");
             int page = req.queryParams("page") != null ? Integer.parseInt(req.queryParams("page")) : 1;
@@ -26,7 +26,7 @@ public class CharacterController {
             return JsonUtil.toJson(repository.findPage(page, size));
         });
 
-        // criação de personagem
+        // (POST) criação de personagem
         post("/personagem", (req, res) -> {
             res.type("application/json");
             try {
@@ -43,13 +43,12 @@ public class CharacterController {
             }
         });
 
-        // atualizar personagem
+        // (PUT) atualizar personagem
         put("/personagem/:id", (req, res) -> {
             res.type("application/json");
             try {
                 Integer id = Integer.parseInt(req.params(":id"));
                 Character character = JsonUtil.fromJson(req.body(), Character.class);
-                
                 // tem que ser o mesmo id da url
                 character.setId(id);
                 
@@ -62,7 +61,7 @@ public class CharacterController {
             }
         });
         
-        // deletar personagem
+        // (DELETE) deletar personagem
         delete("/personagem/:id", (req, res) -> {
             res.type("application/json");
             try {

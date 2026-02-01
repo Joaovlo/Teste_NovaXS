@@ -20,7 +20,7 @@ public class Main {
 
         new ImportController(importService);
 //        new CharacterController();
-        new EpisodeController();
+//        new EpisodeController();
 
         get("/health", (req, res) -> "OK");
         System.out.println("Server started at http://localhost:8080");
