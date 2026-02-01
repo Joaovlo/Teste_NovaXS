@@ -26,7 +26,7 @@ public class ImportController {
                 List<Character> characters = service.importAllCharacters();
                 List<Episode> episodes = new java.util.ArrayList<>();
                 for (Character character : characters) {
-                    for (String episodeUrl : character.episode) {
+                    for (String episodeUrl : character.getEpisode()) {
                         //TODO: evitar a duplicação de episodios
                         Episode episode = service.importEpisode(episodeUrl);
                         episodes.add(episode);
