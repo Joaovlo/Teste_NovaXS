@@ -4,14 +4,19 @@ package com.example.rickstarter;
 import static spark.Spark.*;
 
 import com.example.rickstarter.controller.*;
+import com.example.rickstarter.repository.CharacterRepository;
+import com.example.rickstarter.repository.EpisodeRepository;
 import com.example.rickstarter.service.*;
 
 public class Main {
     public static void main(String[] args) {
         port(8080);
-
+        
+//        CharacterRepository charRepo = new MemoryCharacterRepository();
+//        EpisodeRepository epRepo = new MemoryEpisodeRepository();
         RickAndMortyClient client = new RickAndMortyClient();
-        ImportService importService = new ImportService(client);
+        // item temporário até organizar os controllers
+        ImportService importService = new ImportService(client, null,null);
 
         new ImportController(importService);
         new CharacterController();
