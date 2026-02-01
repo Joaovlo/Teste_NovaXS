@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "com.example.rickstarter.Main",
+      "projectName": "java-spark-rickstarter"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main (Java Spark)",
+      "request": "launch",
+      "mainClass": "com.example.rickstarter.Main",
+      "projectName": "java-spark-rickandmorty-starter",
+      "preLaunchTask": "maven-compile",
+      "console": "integratedTerminal"
+    }
+  ]
+}
