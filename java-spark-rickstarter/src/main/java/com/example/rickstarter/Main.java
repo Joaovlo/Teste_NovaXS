@@ -2,27 +2,26 @@
 package com.example.rickstarter;
 
 import static spark.Spark.*;
-
 import com.example.rickstarter.controller.*;
-import com.example.rickstarter.repository.CharacterRepository;
-import com.example.rickstarter.repository.EpisodeRepository;
+import com.example.rickstarter.repository.*;
 import com.example.rickstarter.service.*;
 
 public class Main {
-    public static void main(String[] args) {
-        port(8080);
-        
-//        CharacterRepository charRepo = new MemoryCharacterRepository();
-//        EpisodeRepository epRepo = new MemoryEpisodeRepository();
-        RickAndMortyClient client = new RickAndMortyClient();
-        // item temporário até organizar os controllers
-        ImportService importService = new ImportService(client, null,null);
+	public static void main(String[] args) {
+		port(8080);
 
-        new ImportController(importService);
-//        new CharacterController();
-//        new EpisodeController();
+		CharacterRepository charRepo = new MemoryCharacterRepository();
+		EpisodeRepository epRepo = new MemoryEpisodeRepository();
+		RickAndMortyClient client = new RickAndMortyClient();
+		ImportService importService = new ImportService(client, charRepo, epRepo);
 
-        get("/health", (req, res) -> "OK");
-        System.out.println("Server started at http://localhost:8080");
-    }
+		new ImportController(importService);
+		new CharacterController(charRepo);
+		new EpisodeController(epRepo);
+
+		get("/health", (req, res) -> "OK");
+		System.out.println("Servidor rodando...");
+		System.out.println("Importar dados: http://localhost:8080/import");
+		System.out.println("Listar personagens: http://localhost:8080/personagem");
+	}
 }
