@@ -64,7 +64,8 @@ public class Character {
 
 	@Override
 	public String toString() {
-		return "Character [id=" + id + ", name=" + name + ", status=" + status + "]";
+		return "Character [id=" + id + ", name=" + name + ", status=" + status + ", specie= " + species
+				+ ", episodes=  " + episode + "]";
 	}
 
 	@Override
