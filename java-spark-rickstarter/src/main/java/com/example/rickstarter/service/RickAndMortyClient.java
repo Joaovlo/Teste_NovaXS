@@ -3,6 +3,7 @@ package com.example.rickstarter.service;
 
 import com.example.rickstarter.model.Character;
 import com.example.rickstarter.model.Episode;
+import com.example.rickstarter.util.ApiUtil;
 import com.example.rickstarter.util.JsonUtil;
 import com.google.gson.*;
 import okhttp3.*;
@@ -17,9 +18,16 @@ public class RickAndMortyClient {
 		String url = BASE + "/character";
 
 		while (url != null) {
-			Request req = new Request.Builder().url(url).get().build();
+			Request req = new Request.Builder().url(url).addHeader("User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+					.get().build();
 			try (Response resp = client.newCall(req).execute()) {
+				ApiUtil.showCode(resp, url);
+				if (ApiUtil.hasError(resp, url))
+					break;
+
 				String body = resp.body().string();
+				ApiUtil.showBody(body);
 				JsonElement tree = JsonUtil.readTree(body);
 				JsonObject root = tree.getAsJsonObject();
 				JsonArray results = root.getAsJsonArray("results");
@@ -43,9 +51,17 @@ public class RickAndMortyClient {
 		String url = BASE + "/episode";
 
 		while (url != null) {
-			Request req = new Request.Builder().url(url).get().build();
+			Request req = new Request.Builder().url(url).addHeader("User-Agent",
+					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+					.get().build();
+
 			try (Response resp = client.newCall(req).execute()) {
+				ApiUtil.showCode(resp, url);
+				if (ApiUtil.hasError(resp, url))
+					break;
+
 				String body = resp.body().string();
+				ApiUtil.showBody(body);
 				JsonElement tree = JsonUtil.readTree(body);
 				JsonObject root = tree.getAsJsonObject();
 				JsonArray results = root.getAsJsonArray("results");
@@ -57,10 +73,10 @@ public class RickAndMortyClient {
 				}
 				// Paginação
 				JsonObject infor = root.has("info") ? root.getAsJsonObject("info") : null;
-				JsonElement next = (infor == null) ? null: infor.get("next");
-				url = (next == null || next.isJsonNull()) ? null: next.getAsString();
+				JsonElement next = (infor == null) ? null : infor.get("next");
+				url = (next == null || next.isJsonNull()) ? null : next.getAsString();
 			}
-			
+
 		}
 		return episodes;
 	}
