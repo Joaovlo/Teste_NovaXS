@@ -19,7 +19,7 @@ public class Main {
         ImportService importService = new ImportService(client, null,null);
 
         new ImportController(importService);
-        new CharacterController();
+//        new CharacterController();
         new EpisodeController();
 
         get("/health", (req, res) -> "OK");
