@@ -41,6 +41,15 @@ public class RickAndMortyClient {
 				JsonObject info = root.has("info") ? root.getAsJsonObject("info") : null;
 				JsonElement next = (info == null) ? null : info.get("next");
 				url = (next == null || next.isJsonNull()) ? null : next.getAsString();
+				
+				// adicionado para evitar bloqueios de requisição
+				try {
+                    System.out.println("Aguardando...");
+                    Thread.sleep(600);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+				
 			}
 		}
 		return out;
