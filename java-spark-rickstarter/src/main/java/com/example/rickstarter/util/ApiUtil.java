@@ -6,7 +6,7 @@ public class ApiUtil {
 
 	public static boolean hasError(Response resp, String url) {
 		if (!resp.isSuccessful()) {
-			System.err.println("❌ Erro na API: " + resp.code() + " na URL: " + url);
+			System.err.println("Debug erro: " + resp.code() + " na URL: " + url);
 			return true;
 		}
 		return false;
